@@ -1,0 +1,6 @@
+[submodule "school-system-server"]
+	path = school-system-server
+	url = https://github.com/Xezzon/school-system-server.git
+[submodule "school-system-web"]
+	path = school-system-web
+	url = https://github.com/Xezzon/school-system-web.git
