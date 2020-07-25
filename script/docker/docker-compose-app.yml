@@ -1,0 +1,7 @@
+version: '3'
+services:
+    ss-static:
+        image: school-system-web:1.0.0
+        container_name: ss-static
+        ports:
+            - 9210:9210
