@@ -2,7 +2,7 @@
 version: '3'
 services:
     nginx:
-        image: nginx
+        image: nginx:1.19
         container_name: nginx
         ports:
             - 80:80
@@ -15,7 +15,7 @@ services:
             - $PWD/log/nginx:/var/log/nginx #日志文件挂载
         restart: always
     mariadb:
-        image: mariadb
+        image: mariadb:10
         container_name: mariadb
         ports:
             - 3306:3306
@@ -28,7 +28,7 @@ services:
             - $PWD/log/mysql:/var/log/mysql #日志文件挂载
         restart: always
     redis:
-        image: redis
+        image: redis:6
         container_name: redis-server
         ports:
             - 6379:6379
