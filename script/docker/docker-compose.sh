@@ -1,2 +1,1 @@
-docker-compose -f docker-compose-env.yml up -d
-docker-compose -f docker-compose-app.yml up -d
+docker-compose -p school-system -f docker-compose-env.yml -f docker-compose-app.yml up -d
