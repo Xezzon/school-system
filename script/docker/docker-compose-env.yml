@@ -6,6 +6,8 @@ services:
         container_name: nginx
         ports:
             - 80:80
+        environment:
+            TZ: Asia/Shanghai
         volumes:
             - $PWD/conf/nginx/nginx.conf:/etc/nginx/nginx.conf #配置文件挂载
             - $PWD/conf/nginx/conf.d:/etc/nginx/conf.d
