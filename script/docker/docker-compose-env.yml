@@ -38,3 +38,10 @@ services:
             - $PWD/conf/redis/redis.conf:/usr/local/etc/redis/redis.conf
             - $PWD/data/redis:/data #数据文件挂载
         restart: always
+    nacos-registry:
+        image: nacos/nacos-server:1.4.0
+        container_name: nacos-registry
+        ports:
+            - 8848:8848
+        environment:
+            - 'MODE=standalone'
