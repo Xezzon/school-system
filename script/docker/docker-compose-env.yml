@@ -13,21 +13,20 @@ services:
             - $PWD/conf/nginx/conf.d:/etc/nginx/conf.d
             - $PWD/data/nginx/html:/usr/share/nginx/html #静态资源根目录挂载
             - $PWD/log/nginx:/var/log/nginx #日志文件挂载
-        restart: always
-    mariadb:
-        image: mariadb:10
-        container_name: mariadb
+        restart: unless-stopped
+    pgsql:
+        image: postgres:13
+        container_name: pgsql
         ports:
-            - 3306:3306
-        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+            - 5432:5432
         environment:
-            MYSQL_ROOT_PASSWORD_FILE: /etc/mysql/conf.d/secrets/root_password
-            MYSQL_ROOT_HOST: '%'
+            # POSTGRES_PASSWORD: 123456
+            POSTGRES_PASSWORD_FILE: /run/secrets/postgres-passwd
         volumes:
-            - $PWD/conf/mysql/conf.d:/etc/mysql/conf.d #配置文件挂载
-            - $PWD/data/mysql:/var/lib/mysql #数据文件挂载
-            - $PWD/log/mysql:/var/log/mysql #日志文件挂载
-        restart: always
+            - $PWD/conf/pgsql/postgresql.conf:/etc/postgresql/postgresql.conf #配置文件挂载
+            - $PWD/conf/pgsql/secrets:/run/secrets
+            - $PWD/data/pgsql:/var/lib/postgresql/data #数据文件挂载
+        restart: unless-stopped
     redis:
         image: redis:6
         container_name: redis-server
@@ -37,7 +36,7 @@ services:
         volumes:
             - $PWD/conf/redis/redis.conf:/usr/local/etc/redis/redis.conf
             - $PWD/data/redis:/data #数据文件挂载
-        restart: always
+        restart: unless-stopped
     nacos-registry:
         image: nacos/nacos-server:1.4.0
         container_name: nacos-registry
@@ -45,3 +44,4 @@ services:
             - 8848:8848
         environment:
             - 'MODE=standalone'
+        restart: unless-stopped
